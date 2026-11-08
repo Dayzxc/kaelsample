@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef8fa">
+  <meta name="description" content="Join the Dayday family in celebrating the Holy Baptism of Kael Lucas P. Dayday.">
+  <title>Kael Lucas P. Dayday | Holy Baptism</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --teal: #3199ad;
+      --deep-teal: #176d83;
+      --navy: #123b5a;
+      --sky: #d9f0f5;
+      --pale: #eef8fa;
+      --silver: #c5dde5;
+      --white: #fff;
+      --ink-soft: #537182;
+      --serif: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+      --shadow: 0 24px 70px rgba(18, 59, 90, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--pale);
+      color: var(--navy);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    button, a { font: inherit; }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid var(--teal);
+      outline-offset: 4px;
+    }
+    .opening-screen {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 28px 20px;
+      background:
+        radial-gradient(ellipse at 50% 22%, rgba(255,255,255,.96), transparent 46%),
+        linear-gradient(145deg, #eaf7fa, #d9f0f5 54%, #e8f5f8);
+      transition: opacity .8s ease, visibility .8s ease;
+    }
+    .opening-screen::before, .opening-screen::after {
+      position: absolute;
+      width: 310px;
+      height: 310px;
+      border: 1px solid rgba(49,153,173,.14);
+      border-radius: 50%;
+      content: "";
+      pointer-events: none;
+    }
+    .opening-screen::before { top: -190px; left: -150px; }
+    .opening-screen::after { right: -170px; bottom: -205px; width: 390px; height: 390px; }
+    .opening-screen.is-dismissed { opacity: 0; visibility: hidden; pointer-events: none; }
+    .opening-content {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 560px);
+      text-align: center;
+    }
+    .opening-kicker, .eyebrow {
+      color: var(--deep-teal);
+      font-size: .69rem;
+      font-weight: 700;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+    .opening-title {
+      margin: 13px 0 8px;
+      color: var(--navy);
+      font: 400 clamp(2.3rem, 7vw, 3.8rem)/1.05 var(--serif);
+    }
+    .opening-copy { margin: 0; color: var(--ink-soft); font: 1rem/1.6 var(--serif); }
+    .envelope {
+      position: relative;
+      width: min(290px, 76vw);
+      height: 185px;
+      margin: 36px auto 23px;
+      perspective: 900px;
+      filter: drop-shadow(0 20px 19px rgba(18,59,90,.16));
+    }
+    .envelope-back {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border-radius: 5px;
+      background: linear-gradient(145deg, #6bb6c3, #318da3);
+    }
+    .envelope-card {
+      position: absolute;
+      z-index: 2;
+      top: 10px;
+      left: 10%;
+      display: grid;
+      width: 80%;
+      height: 140px;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(197,221,229,.9);
+      background: #fff;
+      color: var(--deep-teal);
+      transform: translateY(28px);
+      transition: transform 1.05s cubic-bezier(.2,.8,.2,1) .25s, box-shadow .6s ease .35s;
+    }
+    .envelope-card::before {
+      position: absolute;
+      inset: -8px;
+      content: "";
+      pointer-events: none;
+    }
+    .envelope-card::before {
+      background: url("public/babykail.jpg") center 35% / cover no-repeat;
+      opacity: .75;
+    }
+    .envelope-card > div { position: relative; z-index: 3; text-shadow: 0 1px 5px rgba(255,255,255,.95), 0 0 10px rgba(255,255,255,.75); }
+    .envelope-card svg { width: 34px; height: 34px; }
+    .envelope-card span {
+      display: block;
+      margin-top: -28px;
+      font: 1rem var(--serif);
+      letter-spacing: .06em;
+    }
+    .letter-sparkles { position: absolute; z-index: 2; inset: 0; pointer-events: none; }
+    .letter-sparkles span {
+      position: absolute;
+      color: #fffdf2;
+      opacity: 0;
+      text-shadow: 0 0 7px rgba(255,255,255,.95), 0 0 12px rgba(49,153,173,.7);
+    }
+    .letter-sparkles span:nth-child(1) { top: 17%; left: 13%; font-size: .9rem; }
+    .letter-sparkles span:nth-child(2) { top: 25%; right: 14%; font-size: .7rem; }
+    .letter-sparkles span:nth-child(3) { right: 21%; bottom: 17%; font-size: 1rem; }
+    .letter-sparkles span:nth-child(4) { bottom: 20%; left: 20%; font-size: .65rem; }
+    .opening-screen.is-opening .letter-sparkles span { animation: letter-twinkle 1.8s ease-in-out infinite; }
+    .opening-screen.is-opening .letter-sparkles span:nth-child(2) { animation-delay: .35s; }
+    .opening-screen.is-opening .letter-sparkles span:nth-child(3) { animation-delay: .7s; }
+    .opening-screen.is-opening .letter-sparkles span:nth-child(4) { animation-delay: 1.05s; }
+    @keyframes letter-twinkle {
+      0%, 100% { opacity: 0; transform: scale(.45) rotate(-15deg); }
+      45%, 60% { opacity: .95; transform: scale(1) rotate(10deg); }
+    }
+    .envelope-front {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      border-radius: 5px;
+      background: linear-gradient(145deg, #91c9d2, #5ca9b9);
+      clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+    }
+    .envelope-flap {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 4;
+      height: 58%;
+      border-radius: 5px 5px 0 0;
+      background: linear-gradient(145deg, #b6dce2, #7dbbc6);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: 50% 0;
+      transition: transform .72s cubic-bezier(.2,.75,.3,1), z-index 0s .36s;
+    }
+    .envelope-seal {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      z-index: 5;
+      display: grid;
+      width: 43px;
+      height: 43px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.75);
+      border-radius: 50%;
+      background: var(--deep-teal);
+      color: #fff;
+      transform: translate(-50%, -50%);
+      transition: opacity .25s ease, transform .35s ease;
+    }
+    .envelope-seal svg { width: 20px; height: 20px; }
+    .opening-sparkles {
+      position: absolute;
+      inset: -20px;
+      z-index: 6;
+      pointer-events: none;
+    }
+    .opening-sparkles span {
+      position: absolute;
+      color: #d3b86e;
+      opacity: 0;
+      font: 1.3rem var(--serif);
+    }
+    .opening-sparkles span:nth-child(1) { top: 9%; left: 8%; }
+    .opening-sparkles span:nth-child(2) { top: 21%; right: 7%; font-size: 1rem; }
+    .opening-sparkles span:nth-child(3) { top: 55%; left: 1%; }
+    .opening-sparkles span:nth-child(4) { top: 70%; right: 1%; font-size: 1.5rem; }
+    .opening-sparkles span:nth-child(5) { bottom: 5%; left: 22%; font-size: 1rem; }
+    .opening-sparkles span:nth-child(6) { bottom: 12%; right: 21%; }
+    .opening-screen.is-opening .envelope {
+      box-shadow: 0 26px 65px rgba(18,59,90,.25), 0 0 38px rgba(255,255,255,.95);
+      transform: translateY(-8px) rotate(0) scale(1.025);
+    }
+    .opening-screen.is-opening .envelope-flap { z-index: 1; transform: rotateX(180deg); }
+    .opening-screen.is-opening .envelope-card {
+      transform: translateY(-66px);
+      box-shadow: 0 0 32px rgba(255,255,255,.9);
+    }
+    .opening-screen.is-opening .envelope-seal { opacity: 0; transform: translate(-50%, -50%) scale(.6); }
+    .opening-screen.is-opening .opening-sparkles span { animation: sparkle-rise 1.35s ease-out both; }
+    .opening-screen.is-opening .opening-sparkles span:nth-child(2) { animation-delay: .12s; }
+    .opening-screen.is-opening .opening-sparkles span:nth-child(3) { animation-delay: .22s; }
+    .opening-screen.is-opening .opening-sparkles span:nth-child(4) { animation-delay: .08s; }
+    .opening-screen.is-opening .opening-sparkles span:nth-child(5) { animation-delay: .3s; }
+    .opening-screen.is-opening .opening-sparkles span:nth-child(6) { animation-delay: .18s; }
+    @keyframes sparkle-rise {
+      0% { opacity: 0; transform: translateY(10px) scale(.6) rotate(-12deg); }
+      35% { opacity: .9; }
+      100% { opacity: 0; transform: translateY(-34px) scale(1.15) rotate(18deg); }
+    }
+    .opening-name {
+      margin: 0 0 19px;
+      color: var(--navy);
+      font-size: .69rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+    }
+    .button-primary, .button-secondary, .map-link {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid var(--deep-teal);
+      border-radius: 999px;
+      padding: 0 25px;
+      background: var(--deep-teal);
+      color: white;
+      cursor: pointer;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .button-primary:hover, .map-link:hover { background: var(--navy); box-shadow: 0 8px 20px rgba(18,59,90,.15); transform: translateY(-2px); }
+    .button-primary svg, .button-secondary svg, .map-link svg { width: 17px; height: 17px; }
+
+    .music-toggle {
+      position: fixed;
+      z-index: 4;
+      right: max(20px, env(safe-area-inset-right));
+      bottom: max(20px, env(safe-area-inset-bottom));
+      box-shadow: 0 8px 24px rgba(18,59,90,.16);
+    }
+    .music-toggle[aria-pressed="true"] { background: var(--navy); color: #fff; }
+    .music-toggle:disabled { cursor: not-allowed; opacity: .7; }
+
+    .site-shell {
+      visibility: hidden;
+      min-height: 100vh;
+      opacity: 0;
+      transition: opacity .9s ease, visibility .9s ease;
+    }
+    .site-shell.is-visible { visibility: visible; opacity: 1; }
+    .page-wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 0;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--deep-teal);
+      font: 1rem var(--serif);
+      letter-spacing: .04em;
+      text-decoration: none;
+    }
+    .brand-mark { width: 25px; height: 25px; }
+    .button-secondary {
+      min-height: 38px;
+      padding: 0 16px;
+      border-color: var(--silver);
+      background: transparent;
+      color: var(--deep-teal);
+      font-size: .62rem;
+      letter-spacing: .1em;
+    }
+    .button-secondary:hover { background: white; transform: translateY(-1px); }
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .82fr);
+      align-items: center;
+      gap: clamp(42px, 8vw, 110px);
+      min-height: 635px;
+      padding: 38px clamp(28px, 6vw, 84px) 68px;
+      overflow: hidden;
+      border: 1px solid rgba(197,221,229,.8);
+      background:
+        radial-gradient(ellipse at 12% 2%, rgba(217,240,245,.75), transparent 36%),
+        linear-gradient(135deg, rgba(255,255,255,.98), rgba(250,254,255,.94));
+      box-shadow: var(--shadow);
+    }
+    .hero::before, .hero::after {
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border: 1px solid rgba(49,153,173,.18);
+      border-radius: 50%;
+      content: "";
+      pointer-events: none;
+    }
+    .hero::before { top: -155px; left: -135px; box-shadow: 0 0 0 16px rgba(49,153,173,.025), 0 0 0 32px rgba(49,153,173,.025); }
+    .hero::after { right: -155px; bottom: -165px; }
+    .hero-copy { position: relative; z-index: 1; text-align: center; }
+    .hero-symbols { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0 auto 22px; }
+    .cross-ornament { display: block; width: 39px; height: 39px; color: var(--teal); }
+    .dove-ornament { display: block; width: 39px; height: 39px; color: var(--deep-teal); filter: drop-shadow(0 3px 4px rgba(18,59,90,.1)); }
+    .hero h1 {
+      margin: 19px 0 16px;
+      color: var(--navy);
+      font: 400 clamp(2.6rem, 5vw, 4.65rem)/.98 var(--serif);
+      letter-spacing: -.035em;
+    }
+    .hero h1 span { display: block; margin-top: 9px; color: var(--deep-teal); font-size: .58em; letter-spacing: .1em; }
+    .hero-intro { max-width: 430px; margin: 0 auto; color: var(--ink-soft); font: 1.13rem/1.8 var(--serif); }
+    .hero-blessing { max-width: 370px; margin: 17px auto 24px; color: #6b8491; font: .96rem/1.7 var(--serif); font-style: italic; }
+    .hero-divider, .ornamental-rule {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 22px auto;
+      color: var(--teal);
+    }
+    .hero-divider::before, .hero-divider::after, .ornamental-rule::before, .ornamental-rule::after {
+      width: 54px;
+      height: 1px;
+      background: var(--silver);
+      content: "";
+    }
+    .hero-divider svg { width: 15px; height: 15px; }
+    .photo-column { position: relative; z-index: 1; max-width: 410px; margin: 0 auto; }
+    .photo-frame {
+      position: relative;
+      padding: 12px;
+      border: 1px solid var(--silver);
+      background: rgba(255,255,255,.76);
+      box-shadow: 0 18px 45px rgba(18,59,90,.15);
+      transform: rotate(1.5deg);
+      transition: transform .5s ease, box-shadow .5s ease;
+    }
+    .photo-frame::before {
+      position: absolute;
+      z-index: 1;
+      inset: 5px;
+      border: 1px solid rgba(255,255,255,.74);
+      content: "";
+      pointer-events: none;
+    }
+    .photo-frame::after {
+      position: absolute;
+      z-index: 2;
+      inset: -4px;
+      border-radius: 2px;
+      background:
+        radial-gradient(circle at 0 0, rgba(255,255,255,.95), rgba(49,153,173,.22) 9%, transparent 25%),
+        radial-gradient(circle at 100% 0, rgba(255,255,255,.95), rgba(49,153,173,.22) 9%, transparent 25%),
+        radial-gradient(circle at 0 100%, rgba(255,255,255,.95), rgba(49,153,173,.22) 9%, transparent 25%),
+        radial-gradient(circle at 100% 100%, rgba(255,255,255,.95), rgba(49,153,173,.22) 9%, transparent 25%);
+      content: "";
+      opacity: .3;
+      pointer-events: none;
+      animation: photo-corner-glow 4.2s ease-in-out infinite;
+    }
+    @keyframes photo-corner-glow {
+      0%, 100% { opacity: .2; filter: brightness(1); }
+      50% { opacity: .85; filter: brightness(1.2); }
+    }
+    .photo-frame:hover { box-shadow: 0 24px 55px rgba(18,59,90,.21); transform: rotate(0) translateY(-4px); }
+    .baby-photo {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center 34%;
+      cursor: zoom-in;
+    }
+    .photo-caption { margin: 19px 0 0; color: var(--deep-teal); font: italic 1rem var(--serif); text-align: center; }
+    .photo-caption span { display: block; margin-top: 5px; color: var(--ink-soft); font: .61rem var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+    .floating-sparkle { position: absolute; color: var(--teal); opacity: .46; animation: drift 5s ease-in-out infinite; }
+    .sparkle-one { top: 13%; right: 3%; font-size: 1.4rem; }
+    .sparkle-two { bottom: 17%; left: -5%; font-size: 1.1rem; animation-delay: -2.2s; }
+    .floral-spray { position: absolute; z-index: 0; bottom: 12px; left: 9px; width: 132px; color: var(--teal); opacity: .31; pointer-events: none; }
+    .floral-spray svg { display: block; width: 100%; height: auto; }
+    @keyframes drift { 50% { transform: translateY(-9px) rotate(7deg); opacity: .75; } }
+
+    .section { padding: 94px 0; }
+    .section-heading { margin: 0; color: var(--navy); font: 400 clamp(2rem, 4vw, 3.1rem)/1.1 var(--serif); text-align: center; }
+    .section-intro { max-width: 560px; margin: 15px auto 0; color: var(--ink-soft); font: 1rem/1.75 var(--serif); text-align: center; }
+    .gallery-section { padding-top: 40px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 790px; margin: 38px auto 0; }
+    .gallery-card { margin: 0; padding: 10px 10px 18px; border: 1px solid var(--silver); background: rgba(255,255,255,.82); box-shadow: 0 15px 35px rgba(18,59,90,.09); transition: transform .35s ease, box-shadow .35s ease; }
+    .gallery-card:nth-child(1) { transform: rotate(-1.3deg); }
+    .gallery-card:nth-child(2) { transform: rotate(1.3deg); }
+    .gallery-card:hover { box-shadow: 0 21px 42px rgba(18,59,90,.15); transform: translateY(-4px) rotate(0); }
+    .gallery-photo { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 38%; cursor: zoom-in; }
+    .gallery-photo:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+    .gallery-card figcaption { margin-top: 14px; color: var(--deep-teal); font: italic 1rem var(--serif); text-align: center; }
+    .details-section { position: relative; }
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 45px;
+    }
+    .detail-card {
+      min-height: 178px;
+      padding: 27px 22px;
+      border: 1px solid rgba(197,221,229,.85);
+      background: rgba(255,255,255,.8);
+      text-align: center;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .detail-card:hover { box-shadow: 0 14px 32px rgba(18,59,90,.08); transform: translateY(-4px); }
+    .detail-icon { width: 27px; height: 27px; margin: 0 auto 13px; color: var(--teal); }
+    .detail-card h3 { margin: 0 0 9px; color: var(--deep-teal); font-size: .66rem; letter-spacing: .17em; text-transform: uppercase; }
+    .detail-card p { margin: 0; color: var(--navy); font: 1.08rem/1.5 var(--serif); }
+    .detail-card .sub-detail { margin-top: 4px; color: var(--ink-soft); font: .83rem/1.5 var(--sans); }
+    .map-row { margin-top: 31px; text-align: center; }
+    .map-link { min-height: 44px; padding: 0 21px; font-size: .64rem; }
+
+    .godparents {
+      position: relative;
+      padding: 76px 24px 82px;
+      border-top: 1px solid rgba(197,221,229,.8);
+      border-bottom: 1px solid rgba(197,221,229,.8);
+      background: rgba(255,255,255,.62);
+      text-align: center;
+    }
+    .godparents::before, .godparents::after {
+      position: absolute;
+      top: 50%;
+      width: min(16vw, 190px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--silver));
+      content: "";
+    }
+    .godparents::before { left: 0; }
+    .godparents::after { right: 0; transform: rotate(180deg); }
+    .godparent-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px 72px; margin-top: 36px; }
+    .godparent { min-width: 180px; }
+    .godparent-label { display: block; margin-bottom: 9px; color: var(--teal); font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+    .godparent-name {
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--navy);
+      font: 1.3rem/1.65 var(--serif);
+      transition: color .2s ease, background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+    .godparent-name:hover {
+      background: rgba(217,240,245,.8);
+      box-shadow: 0 4px 14px rgba(49,153,173,.15);
+      color: var(--deep-teal);
+      transform: translateY(-2px);
+    }
+    .family-note {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      align-items: center;
+      gap: 60px;
+      padding: 90px 0 100px;
+    }
+    .guest-card {
+      padding: 39px;
+      border: 1px solid var(--silver);
+      background: rgba(255,255,255,.8);
+      text-align: center;
+      box-shadow: 0 12px 35px rgba(18,59,90,.06);
+    }
+    .guest-card .eyebrow { margin: 0; }
+    .guest-card h2 { margin: 18px 0 10px; color: var(--navy); font: 400 2.2rem var(--serif); }
+    .guest-card p { margin: 0; color: var(--ink-soft); font: italic 1.03rem var(--serif); }
+    .guest-card .guest-name { color: var(--deep-teal); }
+    .family-copy { text-align: center; }
+    .family-copy p { margin: 0 auto 13px; color: var(--ink-soft); font: 1.15rem/1.8 var(--serif); }
+    .family-copy .with-love { margin-top: 29px; font-style: italic; }
+    .family-name { display: block; color: var(--navy); font-size: .72rem; font-weight: 700; letter-spacing: .24em; }
+    .footer {
+      padding: 25px 0 35px;
+      border-top: 1px solid rgba(197,221,229,.75);
+      color: #78909c;
+      font-size: .67rem;
+      letter-spacing: .11em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .footer svg { display: block; width: 19px; height: 19px; margin: 0 auto 9px; color: var(--teal); }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.is-in-view { opacity: 1; transform: translateY(0); }
+    .lightbox {
+      position: fixed;
+      z-index: 30;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(8,31,48,.88);
+    }
+    .lightbox[hidden] { display: none; }
+    .lightbox img { display: block; max-width: min(92vw, 760px); max-height: 86vh; border: 8px solid white; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 22px;
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 50%;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      font-size: 1.6rem;
+    }
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; gap: 43px; padding: 53px clamp(22px, 7vw, 60px) 58px; }
+      .hero-copy { max-width: 570px; margin: 0 auto; }
+      .floral-spray { bottom: 9px; left: -12px; width: 96px; opacity: .24; }
+      .photo-column { width: min(100%, 370px); }
+      .details-grid { grid-template-columns: repeat(2, 1fr); }
+      .family-note { gap: 30px; }
+      .gallery-section { padding-top: 20px; }
+      .gallery-grid { max-width: 500px; gap: 16px; }
+    }
+    @media (max-width: 560px) {
+      .page-wrap { width: min(100% - 30px, 440px); }
+      .topbar { padding: 16px 0; }
+      .brand { font-size: .9rem; }
+      .button-secondary { padding: 0 11px; font-size: .56rem; }
+      .hero { min-height: auto; gap: 35px; padding: 42px 18px 43px; }
+      .hero h1 { font-size: clamp(2.45rem, 12vw, 3.7rem); }
+      .hero-intro { font-size: 1.04rem; }
+      .baby-photo { aspect-ratio: 4 / 4.6; }
+      .section { padding: 70px 0; }
+      .gallery-grid { grid-template-columns: 1fr; gap: 20px; max-width: 350px; margin-top: 28px; }
+      .gallery-card:nth-child(n) { transform: none; }
+      .details-grid { grid-template-columns: 1fr; gap: 11px; margin-top: 31px; }
+      .detail-card { min-height: auto; padding: 22px 18px; }
+      .godparents { padding: 64px 14px 68px; }
+      .godparents::before, .godparents::after { display: none; }
+      .godparent-list { gap: 25px; }
+      .family-note { grid-template-columns: 1fr; gap: 35px; padding: 68px 0; }
+      .guest-card { padding: 31px 18px; }
+      .family-copy p { font-size: 1.06rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="opening-screen" id="openingScreen" role="dialog" aria-modal="true" aria-labelledby="openingTitle">
+    <div class="opening-content">
+      <p class="opening-kicker">A day of grace &amp; blessing</p>
+      <h1 class="opening-title" id="openingTitle">You're Invited!</h1>
+      <p class="opening-copy">A little blessing is waiting to be celebrated.</p>
+      <div class="envelope" aria-hidden="true">
+        <div class="envelope-back"></div>
+        <div class="envelope-card">
+          <div>
+            <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 4v24M10 11h12M12 9h8v3h-8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>With love</span>
+          </div>
+          <div class="letter-sparkles" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span><span>✧</span></div>
+        </div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-seal">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16M7 10h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </div>
+        <div class="opening-sparkles" aria-hidden="true">
+          <span>✦</span><span>✧</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span>
+        </div>
+      </div>
+      <p class="opening-name">KAEL LUCAS P. DAYDAY</p>
+      <button class="button-primary" id="openInvitation" type="button">
+        OPEN INVITATION
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <main class="site-shell" id="invitation" aria-hidden="true" inert>
+    <div class="page-wrap">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="Kael's baptism invitation, home">
+          <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 4v24M9 11h14M11 9h10v4H11z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Kael's Baptism</span>
+        </a>
+        <button class="button-secondary" id="replayInvitation" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.6 6.4M3 5v6h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Replay Invitation
+        </button>
+      </header>
+
+      <section class="hero" id="home" aria-labelledby="babyName">
+        <span class="floating-sparkle sparkle-one" aria-hidden="true">✧</span>
+        <span class="floating-sparkle sparkle-two" aria-hidden="true">✦</span>
+        <div class="floral-spray" aria-hidden="true">
+          <svg viewBox="0 0 150 180" fill="none">
+            <path d="M12 169C41 132 45 93 99 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M37 126c-20-2-29-12-29-28 17 2 28 11 29 28ZM51 100c-2-18 5-30 20-37 3 17-3 29-20 37ZM69 72c-16-5-23-16-20-32 15 5 23 15 20 32ZM87 47c-6-15-2-27 11-36 7 14 4 26-11 36ZM28 145c15-12 29-12 42-1-12 12-27 13-42 1Z" fill="#d9f0f5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            <circle cx="35" cy="61" r="4" fill="#fff" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="29" cy="57" r="2" fill="#c5dde5"/>
+            <circle cx="40" cy="55" r="2" fill="#c5dde5"/>
+            <path d="M35 55v-5m-4 5 1-4m7 4-1-4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="hero-copy reveal">
+          <div class="hero-symbols" aria-hidden="true">
+            <svg class="cross-ornament" viewBox="0 0 48 48" fill="none"><path d="M24 7v34M14 17h20M18 14h12v6H18z" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9c2.5 0 4 1.5 4 4-2.5 0-4-1.5-4-4Zm32 0c-2.5 0-4 1.5-4 4 2.5 0 4-1.5 4-4Z" fill="currentColor" opacity=".65"/></svg>
+            <svg class="dove-ornament" viewBox="0 0 48 48" fill="none"><path d="M5 27c6.2-.1 10.4-2.9 12.7-8.3 2-4.8 5.8-7.8 11.3-8.6-1.2 2.3-1.5 4.5-1.1 6.7 4.4-.2 8.4-1.5 11.9-3.8-1.4 7.3-5.9 12.7-12.7 15.5-4.8 1.9-9.8 1.9-15.3.1L5 35l2-8Z" fill="#fff" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M17 23c4.4-1 8.1-3.5 11.2-7.6M28 16l2.8 2.6M38 13l4-1.8-2.5 4.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="31.5" cy="13.8" r="1" fill="currentColor"/></svg>
+          </div>
+          <p class="eyebrow">With love and gratitude</p>
+          <div class="hero-divider" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.4-7-10a3.7 3.7 0 0 1 7-1.7A3.7 3.7 0 0 1 19 10c0 5.6-7 10-7 10Z" stroke="currentColor" stroke-width="1.3"/></svg>
+          </div>
+          <p class="hero-intro">Please join us as we celebrate the Holy Baptism of our beloved baby</p>
+          <h1 id="babyName">Kael Lucas<span>P. Dayday</span></h1>
+          <p class="hero-blessing">As he receives God's blessings and begins his beautiful journey of faith.</p>
+          <p class="eyebrow">Holy Baptism &amp; Christening</p>
+        </div>
+        <div class="photo-column reveal">
+          <div class="photo-frame">
+            <img class="baby-photo lightbox-trigger" src="public/baby-photo.jpg" alt="Baby Kael Lucas P. Dayday, the guest of honor" fetchpriority="high" id="babyPhoto" tabindex="0" role="button" aria-label="View a larger photo of baby Kael">
+          </div>
+          <p class="photo-caption">A precious gift from above<span>Our little blessing</span></p>
+        </div>
+      </section>
+
+      <section class="section gallery-section reveal" aria-labelledby="galleryTitle">
+        <p class="eyebrow" style="text-align:center">Little moments, forever cherished</p>
+        <h2 class="section-heading" id="galleryTitle">Little Moments with Kael</h2>
+        <p class="section-intro">A few more smiles from our precious little blessing.</p>
+        <div class="gallery-grid">
+          <figure class="gallery-card">
+            <img class="gallery-photo lightbox-trigger" src="public/locaskkael.jpg" alt="Kael in a cozy little outfit" loading="lazy" tabindex="0" role="button" aria-label="View a larger photo of Kael in his cozy outfit">
+            <figcaption>Our little cuddle bug</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <img class="gallery-photo lightbox-trigger" src="public/kaullocas.jpg" alt="A sweet close-up of baby Kael smiling" loading="lazy" tabindex="0" role="button" aria-label="View a larger close-up photo of baby Kael">
+            <figcaption>A smile to treasure</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section details-section reveal" id="celebration" aria-labelledby="detailsTitle">
+        <p class="eyebrow" style="text-align:center">Please save the date</p>
+        <h2 class="section-heading" id="detailsTitle">The Celebration</h2>
+        <p class="section-intro">We look forward to sharing this joyful and blessed day with you. Please find the celebration details below.</p>
+        <div class="details-grid">
+          <article class="detail-card">
+            <svg class="detail-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="4" y="6" width="20" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 3v6m10-6v6M4 11h20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <h3>Date</h3><p>DATE TO BE ANNOUNCED</p>
+          </article>
+          <article class="detail-card">
+            <svg class="detail-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M14 8v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>Time</h3><p>TIME TO BE ANNOUNCED</p>
+          </article>
+          <article class="detail-card">
+            <svg class="detail-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M4 24h20M7 24V11l7-6 7 6v13M11 24v-7h6v7M5 12h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 8v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <h3>Baptism Ceremony</h3><p>CHURCH NAME</p><p class="sub-detail">Church address to be announced</p>
+          </article>
+          <article class="detail-card">
+            <svg class="detail-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M4 13h20l-2 11H6L4 13Zm2 0 2-7h12l2 7M10 18h8m-7 3h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <h3>Reception</h3><p>RECEPTION VENUE</p><p class="sub-detail">Reception address to be announced</p>
+          </article>
+          <article class="detail-card">
+            <svg class="detail-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M23 12c0 6-9 13-9 13S5 18 5 12a9 9 0 1 1 18 0Z" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+            <h3>Church Address</h3><p>ADDRESS TO BE ANNOUNCED</p>
+          </article>
+          <article class="detail-card">
+            <svg class="detail-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M4 8h20v15H4zM8 8V5h12v3M9 13h10M9 17h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>Reception Address</h3><p>ADDRESS TO BE ANNOUNCED</p>
+          </article>
+        </div>
+        <div class="map-row">
+          <a class="map-link" id="mapLink" href="https://www.google.com/maps/search/?api=1&amp;query=Church+name+and+address" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>
+            OPEN CHURCH MAP
+          </a>
+        </div>
+      </section>
+
+      <section class="godparents reveal" aria-labelledby="godparentsTitle">
+        <p class="eyebrow">Surrounded by love</p>
+        <h2 class="section-heading" id="godparentsTitle">Our Little One's Godparents</h2>
+        <p class="section-intro">With grateful hearts, we celebrate the family and friends who will guide Kael in faith and love.</p>
+        <div class="ornamental-rule" aria-hidden="true">✦</div>
+        <div class="godparent-list">
+          <div class="godparent">
+            
+            <span class="godparent-label">Ninang</span>
+            <span class="godparent-name">Airah</span>
+            <span class="godparent-name">Merry</span>
+            <span class="godparent-name">Bonic</span>
+            <span class="godparent-name">Joanne</span>
+            <span class="godparent-name">Richelyn</span>
+            <span class="godparent-name">Jenny</span>
+            <span class="godparent-name">Jaymie</span>
+            <span class="godparent-name">Julie</span>
+            <span class="godparent-name">Claire</span>
+            <span class="godparent-name">Janette</span>
+            <span class="godparent-name">Issa</span>
+            <span class="godparent-name">Jessan</span>
+            <span class="godparent-name">Monica</span>
+            <span class="godparent-name">Jhemay</span>
+            <span class="godparent-name">Angel</span>
+            <span class="godparent-name">Tina</span>
+            <span class="godparent-name">Zyra</span>
+            
+          </div>
+          <div class="godparent">
+            <span class="godparent-label">Ninong</span>
+            <span class="godparent-name">Luke</span>
+            <span class="godparent-name">Lukas</span>
+            <span class="godparent-name">Lucas</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="family-note reveal" aria-label="A note from the family">
+        <div class="guest-card">
+          <p class="eyebrow">A place in our hearts</p>
+          <h2>Dear <span class="guest-name">[Guest Name]</span>,</h2>
+          <p>you are warmly invited to share this special day with us.</p>
+        </div>
+        <div class="family-copy">
+          <p>We would be honored by your presence as we celebrate this special day.</p>
+          <p class="with-love">With love,</p>
+          <span class="family-name">THE DAYDAY FAMILY</span>
+          <div class="ornamental-rule" aria-hidden="true">✧</div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v18M7 9h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4 15c2.8-1 5.3-.7 8 1.2 2.7-1.9 5.2-2.2 8-1.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        A day of faith, family &amp; love
+      </footer>
+    </div>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Baby Kael photo" hidden>
+    <button class="lightbox-close" id="closeLightbox" type="button" aria-label="Close photo">&times;</button>
+    <img id="lightboxPhoto" src="public/baby-photo.jpg" alt="Baby Kael Lucas P. Dayday">
+  </div>
+
+  <button class="button-secondary music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Play gentle lullaby">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V5l11-2v13M9 18c0 1.1-1.3 2-3 2s-3-.9-3-2 1.3-2 3-2 3 .9 3 2Zm11-2c0 1.1-1.3 2-3 2s-3-.9-3-2 1.3-2 3-2 3 .9 3 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span id="musicToggleLabel">Play lullaby</span>
+  </button>
+
+  <script>
+    // Replace this with the church's Google Maps URL once the venue is confirmed.
+    const churchMapUrl = "https://www.google.com/maps/search/?api=1&query=Church+name+and+address";
+    const openingScreen = document.getElementById("openingScreen");
+    const invitation = document.getElementById("invitation");
+    const openButton = document.getElementById("openInvitation");
+    const replayButton = document.getElementById("replayInvitation");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const musicToggle = document.getElementById("musicToggle");
+    const musicToggleLabel = document.getElementById("musicToggleLabel");
+    let openingTimer;
+    let openingSequence = 0;
+    let audioContext;
+    let musicTimer;
+    let musicPlaying = false;
+    const activeMusicNotes = new Set();
+    const lullabyNotes = [
+      261.63, 329.63, 392, 329.63, 293.66, 349.23, 440, 349.23,
+      261.63, 329.63, 392, 523.25, 440, 392, 329.63, 293.66
+    ];
+
+    document.getElementById("mapLink").href = churchMapUrl;
+
+    function playLullabyPhrase() {
+      if (!musicPlaying || !audioContext) return;
+      const startAt = audioContext.currentTime + 0.08;
+      lullabyNotes.forEach((frequency, index) => {
+        const noteStart = startAt + index * 0.62;
+        const oscillator = audioContext.createOscillator();
+        const volume = audioContext.createGain();
+        const filter = audioContext.createBiquadFilter();
+        oscillator.type = "sine";
+        oscillator.frequency.value = frequency;
+        filter.type = "lowpass";
+        filter.frequency.value = 1400;
+        volume.gain.setValueAtTime(0.0001, noteStart);
+        volume.gain.exponentialRampToValueAtTime(0.022, noteStart + 0.07);
+        volume.gain.exponentialRampToValueAtTime(0.0001, noteStart + 1.45);
+        oscillator.connect(filter);
+        filter.connect(volume);
+        volume.connect(audioContext.destination);
+        oscillator.onended = () => activeMusicNotes.delete(oscillator);
+        activeMusicNotes.add(oscillator);
+        oscillator.start(noteStart);
+        oscillator.stop(noteStart + 1.48);
+      });
+      musicTimer = window.setTimeout(playLullabyPhrase, lullabyNotes.length * 620);
+    }
+
+    musicToggle.addEventListener("click", async () => {
+      if (musicPlaying) {
+        musicPlaying = false;
+        window.clearTimeout(musicTimer);
+        activeMusicNotes.forEach((note) => note.stop());
+        activeMusicNotes.clear();
+        musicToggle.setAttribute("aria-pressed", "false");
+        musicToggle.setAttribute("aria-label", "Play gentle lullaby");
+        musicToggleLabel.textContent = "Play lullaby";
+        return;
+      }
+
+      const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextConstructor) {
+        musicToggleLabel.textContent = "Audio unavailable";
+        musicToggle.setAttribute("aria-label", "Audio playback is not supported by this browser");
+        musicToggle.disabled = true;
+        return;
+      }
+
+      try {
+        if (!audioContext) audioContext = new AudioContextConstructor();
+        if (audioContext.state === "suspended") await audioContext.resume();
+      } catch (error) {
+        musicToggleLabel.textContent = "Audio unavailable";
+        musicToggle.setAttribute("aria-label", "Audio playback could not start");
+        musicToggle.disabled = true;
+        console.error("Could not start the lullaby audio.", error);
+        return;
+      }
+
+      musicPlaying = true;
+      musicToggle.setAttribute("aria-pressed", "true");
+      musicToggle.setAttribute("aria-label", "Pause gentle lullaby");
+      musicToggleLabel.textContent = "Pause lullaby";
+      playLullabyPhrase();
+    });
+
+    function showInvitation() {
+      const sequence = ++openingSequence;
+      window.clearTimeout(openingTimer);
+      openButton.disabled = true;
+      openingScreen.classList.add("is-opening");
+      const revealDelay = reducedMotion.matches ? 50 : 1550;
+      openingTimer = window.setTimeout(() => {
+        if (sequence !== openingSequence) return;
+        openingScreen.classList.add("is-dismissed");
+        invitation.classList.add("is-visible");
+        invitation.removeAttribute("inert");
+        invitation.setAttribute("aria-hidden", "false");
+        window.setTimeout(() => openingScreen.setAttribute("hidden", ""), reducedMotion.matches ? 50 : 850);
+      }, revealDelay);
+    }
+
+    function replayOpening() {
+      ++openingSequence;
+      window.clearTimeout(openingTimer);
+      window.scrollTo({ top: 0, behavior: reducedMotion.matches ? "auto" : "smooth" });
+      invitation.classList.remove("is-visible");
+      invitation.setAttribute("inert", "");
+      invitation.setAttribute("aria-hidden", "true");
+      openingScreen.removeAttribute("hidden");
+      openingScreen.classList.remove("is-dismissed", "is-opening");
+      openButton.disabled = false;
+      openButton.focus();
+    }
+
+    openButton.addEventListener("click", showInvitation);
+    replayButton.addEventListener("click", replayOpening);
+
+    const revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window && !reducedMotion.matches) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach((item) => revealObserver.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("is-in-view"));
+    }
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxPhoto = document.getElementById("lightboxPhoto");
+    const lightboxTriggers = document.querySelectorAll(".lightbox-trigger");
+    const closeLightbox = document.getElementById("closeLightbox");
+    let previousFocus;
+    function openLightbox(photo) {
+      previousFocus = document.activeElement;
+      lightboxPhoto.src = photo.currentSrc || photo.src;
+      lightboxPhoto.alt = photo.alt;
+      lightbox.hidden = false;
+      closeLightbox.focus();
+    }
+    function hideLightbox() {
+      lightbox.hidden = true;
+      if (previousFocus) previousFocus.focus();
+    }
+    lightboxTriggers.forEach((photo) => {
+      photo.addEventListener("click", () => openLightbox(photo));
+      photo.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openLightbox(photo);
+        }
+      });
+    });
+    closeLightbox.addEventListener("click", hideLightbox);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) hideLightbox();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !lightbox.hidden) hideLightbox();
+    });
+  </script>
+</body>
+</html>
