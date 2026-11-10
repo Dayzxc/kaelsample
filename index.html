@@ -49,6 +49,15 @@
         linear-gradient(145deg, #eaf7fa, #d9f0f5 54%, #e8f5f8);
       transition: opacity .8s ease, visibility .8s ease;
     }
+    .opening-decorations { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
+    .opening-decoration { position: absolute; display: block; height: auto; filter: drop-shadow(0 4px 8px rgba(18,59,90,.08)); }
+    .opening-balloons { top: clamp(20px, 6vh, 58px); left: clamp(15px, 5vw, 65px); width: clamp(58px, 8vw, 94px); }
+    .opening-airplane { top: clamp(22px, 7vh, 70px); right: clamp(15px, 5vw, 68px); width: clamp(76px, 10vw, 118px); }
+    .opening-cloud-top { top: clamp(12px, 4vh, 38px); left: 50%; width: clamp(65px, 8vw, 96px); transform: translateX(-50%); opacity: .8; }
+    .opening-cloud-bottom { bottom: clamp(10px, 4vh, 40px); left: 50%; width: clamp(80px, 11vw, 130px); transform: translateX(-50%); opacity: .8; }
+    .opening-teddy { bottom: clamp(18px, 6vh, 58px); left: clamp(14px, 5vw, 66px); width: clamp(64px, 9vw, 104px); }
+    .opening-rainbow { right: clamp(14px, 5vw, 66px); bottom: clamp(18px, 6vh, 58px); width: clamp(82px, 11vw, 126px); }
+    .opening-stars { top: 43%; right: clamp(28px, 12vw, 160px); width: clamp(31px, 4vw, 48px); opacity: .8; }
     .opening-screen::before, .opening-screen::after {
       position: absolute;
       width: 310px;
@@ -66,6 +75,11 @@
       z-index: 1;
       width: min(100%, 560px);
       text-align: center;
+    }
+    @media (max-width: 560px) {
+      .opening-cloud-top { top: 14px; left: 31%; width: 52px; }
+      .opening-cloud-bottom { bottom: 8px; left: 50%; width: 70px; }
+      .opening-stars { top: 26%; right: 12px; width: 28px; }
     }
     .opening-kicker, .eyebrow {
       color: var(--deep-teal);
@@ -284,7 +298,7 @@
       letter-spacing: .04em;
       text-decoration: none;
     }
-    .brand-mark { width: 25px; height: 25px; }
+    .brand-mark { width: 25px; height: 25px; font: 25px/25px var(--serif); text-align: center; }
     .button-secondary {
       min-height: 38px;
       padding: 0 16px;
@@ -323,7 +337,19 @@
     .hero::after { right: -155px; bottom: -165px; }
     .hero-copy { position: relative; z-index: 1; text-align: center; }
     .hero-symbols { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0 auto 22px; }
-    .cross-ornament { display: block; width: 39px; height: 39px; color: var(--teal); }
+    .cross-ornament {
+      display: block;
+      width: 39px;
+      height: 39px;
+      color: var(--teal);
+      font: 39px/39px var(--serif);
+      text-align: center;
+      animation: cross-glow 2.8s ease-in-out infinite;
+    }
+    @keyframes cross-glow {
+      0%, 100% { filter: drop-shadow(0 0 2px rgba(201,180,119,.24)); }
+      50% { filter: drop-shadow(0 0 9px rgba(193, 159, 57, 0.85)); }
+    }
     .dove-ornament { display: block; width: 39px; height: 39px; color: var(--deep-teal); filter: drop-shadow(0 3px 4px rgba(18,59,90,.1)); }
     .hero h1 {
       margin: 19px 0 16px;
@@ -403,6 +429,15 @@
     .floral-spray { position: absolute; z-index: 0; bottom: 12px; left: 9px; width: 132px; color: var(--teal); opacity: .31; pointer-events: none; }
     .floral-spray svg { display: block; width: 100%; height: auto; }
     @keyframes drift { 50% { transform: translateY(-9px) rotate(7deg); opacity: .75; } }
+    .baptism-decorations { position: absolute; z-index: 1; inset: 0; overflow: hidden; pointer-events: none; }
+    .baptism-decoration { position: absolute; display: block; height: auto; filter: drop-shadow(0 4px 7px rgba(18,59,90,.08)); }
+    .decor-balloons { top: 20px; left: 18px; width: 78px; }
+    .decor-airplane { top: 18px; right: 20px; width: 92px; }
+    .decor-cloud-top { top: 3px; left: 96px; width: 75px; opacity: .78; }
+    .decor-cloud-bottom { right: 96px; bottom: 5px; width: 78px; opacity: .76; }
+    .decor-teddy { right: 19px; bottom: 10px; width: 67px; }
+    .decor-rainbow { bottom: 9px; left: 145px; width: 82px; }
+    .decor-stars { top: 105px; right: 25px; width: 37px; opacity: .82; }
 
     .section { padding: 94px 0; }
     .section-heading { margin: 0; color: var(--navy); font: 400 clamp(2rem, 4vw, 3.1rem)/1.1 var(--serif); text-align: center; }
@@ -478,9 +513,9 @@
     }
     .family-note {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      grid-template-columns: minmax(0, 760px);
+      justify-content: center;
       align-items: center;
-      gap: 60px;
       padding: 90px 0 100px;
     }
     .guest-card {
@@ -494,7 +529,7 @@
     .guest-card h2 { margin: 18px 0 10px; color: var(--navy); font: 400 2.2rem var(--serif); }
     .guest-card p { margin: 0; color: var(--ink-soft); font: italic 1.03rem var(--serif); }
     .guest-card .guest-name { color: var(--deep-teal); }
-    .family-copy { text-align: center; }
+    .family-copy { width: 100%; text-align: center; }
     .family-copy p { margin: 0 auto 13px; color: var(--ink-soft); font: 1.15rem/1.8 var(--serif); }
     .family-copy .with-love { margin-top: 29px; font-style: italic; }
     .family-name { display: block; color: var(--navy); font-size: .72rem; font-weight: 700; letter-spacing: .24em; }
@@ -507,7 +542,7 @@
       text-align: center;
       text-transform: uppercase;
     }
-    .footer svg { display: block; width: 19px; height: 19px; margin: 0 auto 9px; color: var(--teal); }
+    .footer-mark { display: block; width: 19px; height: 19px; margin: 0 auto 9px; color: var(--teal); font: 19px/19px var(--serif); }
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.is-in-view { opacity: 1; transform: translateY(0); }
     .lightbox {
@@ -540,6 +575,13 @@
       .hero { grid-template-columns: 1fr; gap: 43px; padding: 53px clamp(22px, 7vw, 60px) 58px; }
       .hero-copy { max-width: 570px; margin: 0 auto; }
       .floral-spray { bottom: 9px; left: -12px; width: 96px; opacity: .24; }
+      .decor-balloons { top: 13px; left: 8px; width: 58px; }
+      .decor-airplane { top: 12px; right: 8px; width: 70px; }
+      .decor-cloud-top { left: 65px; width: 59px; }
+      .decor-cloud-bottom { right: 77px; bottom: 5px; width: 59px; }
+      .decor-teddy { right: 8px; bottom: 0; width: 36px; }
+      .decor-rainbow { bottom: 8px; left: 100px; width: 65px; }
+      .decor-stars { top: 84px; right: 13px; width: 29px; }
       .photo-column { width: min(100%, 370px); }
       .details-grid { grid-template-columns: repeat(2, 1fr); }
       .family-note { gap: 30px; }
@@ -554,6 +596,13 @@
       .hero { min-height: auto; gap: 35px; padding: 42px 18px 43px; }
       .hero h1 { font-size: clamp(2.45rem, 12vw, 3.7rem); }
       .hero-intro { font-size: 1.04rem; }
+      .decor-balloons { top: 8px; left: 4px; width: 46px; }
+      .decor-airplane { top: 8px; right: 4px; width: 58px; }
+      .decor-cloud-top { top: 0; left: 44px; width: 48px; }
+      .decor-cloud-bottom { right: 63px; bottom: 3px; width: 48px; }
+      .decor-teddy { right: 4px; bottom: 0; width: 36px; }
+      .decor-rainbow { bottom: 5px; left: 88px; width: 55px; }
+      .decor-stars { top: 67px; right: 8px; width: 24px; }
       .baby-photo { aspect-ratio: 4 / 4.6; }
       .section { padding: 70px 0; }
       .gallery-grid { grid-template-columns: 1fr; gap: 20px; max-width: 350px; margin-top: 28px; }
@@ -580,6 +629,67 @@
 </head>
 <body>
   <div class="opening-screen" id="openingScreen" role="dialog" aria-modal="true" aria-labelledby="openingTitle">
+    <div class="opening-decorations" aria-hidden="true">
+      <svg class="opening-decoration opening-balloons" viewBox="0 0 120 150" fill="none">
+        <path d="M35 63c3 24 31 26 29 60m19-82c-4 27-19 35-19 82m22-65c-7 22-4 42-3 65" stroke="#b8cbd3" stroke-width="1.25" stroke-linecap="round"/>
+        <ellipse cx="35" cy="37" rx="18" ry="25" fill="#eee7d7" stroke="#d4c69f"/>
+        <ellipse cx="83" cy="22" rx="17" ry="23" fill="#c6e0eb" stroke="#a9c7d4"/>
+        <ellipse cx="63" cy="55" rx="16" ry="22" fill="#fff" stroke="#d5e0e4"/>
+        <ellipse cx="29" cy="25" rx="4" ry="8" fill="#fff" opacity=".6"/>
+        <ellipse cx="78" cy="12" rx="3.5" ry="7" fill="#fff" opacity=".65"/>
+        <ellipse cx="58" cy="47" rx="3.5" ry="7" fill="#fff" opacity=".72"/>
+        <path d="m32 62 3 5 3-5m42-18 6 1-4 4m-18 27 3 5 3-5" fill="#c9b477"/>
+      </svg>
+      <svg class="opening-decoration opening-airplane" viewBox="0 0 160 105" fill="none">
+        <path d="M13 68c21 18 42 17 58 2 14-14 29-19 48-15" stroke="#b5cbd3" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 6"/>
+        <path d="m33 47-13-14c-2-2-5-1-4 2l5 14-12 3c-3 1-3 4 0 5l14 3 10-9Z" fill="#c6dce5" stroke="#7ea8bc" stroke-width="1.3"/>
+        <path d="M30 48c25-5 57-5 82-2l12 4c3 1 3 4 0 5l-12 4c-25 3-57 3-82-2l-8-3v-4l8-2Z" fill="#f7f5ea" stroke="#7ea8bc" stroke-width="1.5"/>
+        <path d="m65 46 15-27c2-3 5-4 9-2l8 5-12 26m-20 8 15 27c2 3 5 4 9 2l8-5-12-26Z" fill="#b9d5e2" stroke="#7ea8bc" stroke-width="1.4"/>
+        <path d="m35 49 9-2m-9 10 9 2m25-10h18m-15 9 3 7m20-7 3 6" stroke="#c7a969" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="76" cy="67" r="3" fill="#fff" stroke="#7ea8bc" stroke-width="1.3"/>
+        <circle cx="96" cy="66" r="3" fill="#fff" stroke="#7ea8bc" stroke-width="1.3"/>
+        <circle cx="51" cy="52" r="2" fill="#fff"/>
+        <circle cx="60" cy="52" r="2" fill="#fff"/>
+      </svg>
+      <svg class="opening-decoration opening-cloud-top" viewBox="0 0 120 58" fill="none">
+        <path d="M16 43c-8 0-13-5-13-12s5-12 12-12c3-10 11-15 20-15 12 0 19 8 21 17 3-3 7-5 12-5 10 0 16 7 17 16 9 0 14 5 14 11 0 7-6 11-14 11H17c-8 0-13-4-13-11Z" fill="#fff" stroke="#d9e7ea" stroke-width="1.4"/>
+        <path d="M14 43c16 4 41 4 66 0" stroke="#e9f1f1" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <svg class="opening-decoration opening-cloud-bottom" viewBox="0 0 120 58" fill="none">
+        <path d="M16 43c-8 0-13-5-13-12s5-12 12-12c3-10 11-15 20-15 12 0 19 8 21 17 3-3 7-5 12-5 10 0 16 7 17 16 9 0 14 5 14 11 0 7-6 11-14 11H17c-8 0-13-4-13-11Z" fill="#fff" stroke="#d9e7ea" stroke-width="1.4"/>
+        <path d="M14 43c16 4 41 4 66 0" stroke="#e9f1f1" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <svg class="opening-decoration opening-teddy" viewBox="0 0 100 115" fill="none">
+        <ellipse cx="50" cy="106" rx="30" ry="5" fill="#8da8b2" opacity=".12"/>
+        <circle cx="26" cy="27" r="14" fill="#eadac2" stroke="#b99f7b" stroke-width="1.2"/>
+        <circle cx="74" cy="27" r="14" fill="#eadac2" stroke="#b99f7b" stroke-width="1.2"/>
+        <circle cx="26" cy="27" r="6" fill="#f5ebdc"/><circle cx="74" cy="27" r="6" fill="#f5ebdc"/>
+        <ellipse cx="50" cy="44" rx="31" ry="30" fill="#e9d8bd" stroke="#b99f7b" stroke-width="1.3"/>
+        <ellipse cx="50" cy="54" rx="15" ry="12" fill="#f3e8d7"/>
+        <circle cx="39" cy="43" r="2" fill="#594b40"/><circle cx="61" cy="43" r="2" fill="#594b40"/>
+        <path d="M47 51c2-3 5-3 7 0l-3.5 4-3.5-4Zm3.5 4v3m0 0c-2 3-4 3-6 1m6-1c2 3 4 3 6 1" fill="#8a6e5f" stroke="#9b7966" stroke-width="1.2" stroke-linecap="round"/>
+        <ellipse cx="31" cy="75" rx="13" ry="18" transform="rotate(-27 31 75)" fill="#e9d8bd" stroke="#b99f7b" stroke-width="1.2"/>
+        <ellipse cx="69" cy="75" rx="13" ry="18" transform="rotate(27 69 75)" fill="#e9d8bd" stroke="#b99f7b" stroke-width="1.2"/>
+        <ellipse cx="50" cy="80" rx="22" ry="24" fill="#e9d8bd" stroke="#b99f7b" stroke-width="1.2"/>
+        <ellipse cx="50" cy="82" rx="11" ry="13" fill="#f1e4d1"/>
+        <ellipse cx="36" cy="99" rx="13" ry="9" fill="#e6d3ba" stroke="#b99f7b"/>
+        <ellipse cx="64" cy="99" rx="13" ry="9" fill="#e6d3ba" stroke="#b99f7b"/>
+        <path d="m47 34-8-7 1-9 10 5 10-5 1 9-8 7-3-4-3 4Z" fill="#b9d5e2" stroke="#8eafbe"/>
+        <circle cx="50" cy="27" r="2" fill="#c7a969"/>
+      </svg>
+      <svg class="opening-decoration opening-rainbow" viewBox="0 0 120 80" fill="none">
+        <path d="M19 66a41 41 0 0 1 82 0" stroke="#e7b5af" stroke-width="7" stroke-linecap="round"/>
+        <path d="M29 66a31 31 0 0 1 62 0" stroke="#ead6a8" stroke-width="7" stroke-linecap="round"/>
+        <path d="M39 66a21 21 0 0 1 42 0" stroke="#b8d5df" stroke-width="7" stroke-linecap="round"/>
+        <path d="M49 66a11 11 0 0 1 22 0" stroke="#c9d6c6" stroke-width="7" stroke-linecap="round"/>
+        <path d="M11 68c-7 0-11-4-11-9 0-5 4-8 9-8 2-6 7-9 13-9 7 0 12 4 13 10 5-3 12-1 14 5 5-1 10 2 10 7 0 3-2 5-5 6H11Zm68 0c-5 0-8-3-8-7 0-4 3-7 7-7 2-5 6-7 11-7 6 0 10 4 11 9 4-2 9-1 11 4 5-1 9 2 9 6 0 3-2 5-5 5H79Z" fill="#fff" stroke="#d9e7ea" stroke-width="1.2"/>
+        <circle cx="25" cy="53" r="1.2" fill="#c7a969"/><circle cx="96" cy="55" r="1.2" fill="#c7a969"/>
+      </svg>
+      <svg class="opening-decoration opening-stars" viewBox="0 0 60 60" fill="none">
+        <path d="M17 3c1.8 8.3 4 10.6 12 12-8 1.4-10.2 3.7-12 12-1.8-8.3-4-10.6-12-12 8-1.4 10.2-3.7 12-12Zm27 22c1.1 5.2 2.5 6.6 7.5 7.5-5 .9-6.4 2.3-7.5 7.5-1.1-5.2-2.5-6.6-7.5-7.5 5-.9 6.4-2.3 7.5-7.5Z" fill="#c9b477"/>
+        <circle cx="12" cy="48" r="2" fill="#d8c99e"/><circle cx="37" cy="12" r="1.5" fill="#d8c99e"/>
+      </svg>
+    </div>
     <div class="opening-content">
       <p class="opening-kicker">A day of grace &amp; blessing</p>
       <h1 class="opening-title" id="openingTitle">You're Invited!</h1>
@@ -587,10 +697,6 @@
       <div class="envelope" aria-hidden="true">
         <div class="envelope-back"></div>
         <div class="envelope-card">
-          <div>
-            <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 4v24M10 11h12M12 9h8v3h-8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>With love</span>
-          </div>
           <div class="letter-sparkles" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span><span>✧</span></div>
         </div>
         <div class="envelope-front"></div>
@@ -614,7 +720,7 @@
     <div class="page-wrap">
       <header class="topbar">
         <a class="brand" href="#home" aria-label="Kael's baptism invitation, home">
-          <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 4v24M9 11h14M11 9h10v4H11z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="brand-mark" aria-hidden="true">♱</span>
           <span>Kael's Baptism</span>
         </a>
         <button class="button-secondary" id="replayInvitation" type="button">
@@ -636,10 +742,85 @@
             <path d="M35 55v-5m-4 5 1-4m7 4-1-4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
           </svg>
         </div>
+        <div class="baptism-decorations" aria-hidden="true">
+          <svg class="baptism-decoration decor-balloons" viewBox="0 0 120 150" fill="none">
+            <path d="M35 63c3 24 31 26 29 60m19-82c-4 27-19 35-19 82m22-65c-7 22-4 42-3 65" stroke="#b8cbd3" stroke-width="1.25" stroke-linecap="round"/>
+            <ellipse cx="35" cy="37" rx="18" ry="25" fill="url(#balloon-cream)" stroke="#d7cba7" stroke-width="1"/>
+            <ellipse cx="83" cy="22" rx="17" ry="23" fill="url(#balloon-blue)" stroke="#a9c7d4" stroke-width="1"/>
+            <ellipse cx="63" cy="55" rx="16" ry="22" fill="url(#balloon-white)" stroke="#d5e0e4" stroke-width="1"/>
+            <path d="M32 62l3 5 3-5m42-18 6 1-4 4m-18 27 3 5 3-5" fill="#d2bd85"/>
+            <ellipse cx="29" cy="25" rx="4" ry="8" fill="#fff" opacity=".55"/>
+            <ellipse cx="78" cy="12" rx="3.5" ry="7" fill="#fff" opacity=".65"/>
+            <ellipse cx="58" cy="47" rx="3.5" ry="7" fill="#fff" opacity=".72"/>
+            <defs>
+              <linearGradient id="balloon-cream" x1="20" y1="13" x2="53" y2="62" gradientUnits="userSpaceOnUse"><stop stop-color="#fffdf7"/><stop offset="1" stop-color="#e8dfc7"/></linearGradient>
+              <linearGradient id="balloon-blue" x1="66" y1="2" x2="101" y2="47" gradientUnits="userSpaceOnUse"><stop stop-color="#f8fdff"/><stop offset="1" stop-color="#b9d7e5"/></linearGradient>
+              <linearGradient id="balloon-white" x1="49" y1="33" x2="79" y2="77" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#e3eef1"/></linearGradient>
+            </defs>
+          </svg>
+          <svg class="baptism-decoration decor-airplane" viewBox="0 0 160 105" fill="none">
+            <path d="M13 68c21 18 42 17 58 2 14-14 29-19 48-15" stroke="#b5cbd3" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 6"/>
+            <path d="m33 47-13-14c-2-2-5-1-4 2l5 14-12 3c-3 1-3 4 0 5l14 3 10-9Z" fill="#c6dce5" stroke="#7ea8bc" stroke-width="1.3" stroke-linejoin="round"/>
+            <path d="M30 48c25-5 57-5 82-2l12 4c3 1 3 4 0 5l-12 4c-25 3-57 3-82-2l-8-3v-4l8-2Z" fill="url(#plane-cream)" stroke="#7ea8bc" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="m65 46 15-27c2-3 5-4 9-2l8 5-12 26m-20 8 15 27c2 3 5 4 9 2l8-5-12-26Z" fill="#b9d5e2" stroke="#7ea8bc" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="m35 49 9-2m-9 10 9 2m25-10h18" stroke="#c7a969" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="m72 58 3 7m20-7 3 6" stroke="#7ea8bc" stroke-width="1.3" stroke-linecap="round"/>
+            <circle cx="76" cy="67" r="3" fill="#fff" stroke="#7ea8bc" stroke-width="1.3"/>
+            <circle cx="96" cy="66" r="3" fill="#fff" stroke="#7ea8bc" stroke-width="1.3"/>
+            <circle cx="51" cy="52" r="2.1" fill="#fff" opacity=".9"/>
+            <circle cx="60" cy="52" r="2.1" fill="#fff" opacity=".9"/>
+            <path d="M123 45v16m-3-12 6 8m-6 0 6-8" stroke="#c7a969" stroke-width="1.6" stroke-linecap="round"/>
+            <defs><linearGradient id="plane-cream" x1="38" y1="25" x2="89" y2="88" gradientUnits="userSpaceOnUse"><stop stop-color="#fffef9"/><stop offset="1" stop-color="#d9e8eb"/></linearGradient></defs>
+          </svg>
+          <svg class="baptism-decoration decor-cloud-top" viewBox="0 0 120 58" fill="none">
+            <path d="M16 43c-8 0-13-5-13-12s5-12 12-12c3-10 11-15 20-15 12 0 19 8 21 17 3-3 7-5 12-5 10 0 16 7 17 16 9 0 14 5 14 11 0 7-6 11-14 11H17c-8 0-13-4-13-11Z" fill="#fff" stroke="#d9e7ea" stroke-width="1.4"/>
+            <path d="M14 43c16 4 41 4 66 0" stroke="#e9f1f1" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="baptism-decoration decor-cloud-bottom" viewBox="0 0 120 58" fill="none">
+            <path d="M16 43c-8 0-13-5-13-12s5-12 12-12c3-10 11-15 20-15 12 0 19 8 21 17 3-3 7-5 12-5 10 0 16 7 17 16 9 0 14 5 14 11 0 7-6 11-14 11H17c-8 0-13-4-13-11Z" fill="#fff" stroke="#d9e7ea" stroke-width="1.4"/>
+            <path d="M14 43c16 4 41 4 66 0" stroke="#e9f1f1" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="baptism-decoration decor-teddy" viewBox="0 0 100 115" fill="none">
+            <ellipse cx="50" cy="106" rx="30" ry="5" fill="#8da8b2" opacity=".12"/>
+            <circle cx="26" cy="27" r="14" fill="url(#bear-fur)" stroke="#b99f7b" stroke-width="1.2"/>
+            <circle cx="74" cy="27" r="14" fill="url(#bear-fur)" stroke="#b99f7b" stroke-width="1.2"/>
+            <circle cx="26" cy="27" r="6" fill="#eadac2"/>
+            <circle cx="74" cy="27" r="6" fill="#eadac2"/>
+            <ellipse cx="50" cy="44" rx="31" ry="30" fill="url(#bear-fur)" stroke="#b99f7b" stroke-width="1.3"/>
+            <ellipse cx="50" cy="54" rx="15" ry="12" fill="#f3e8d7"/>
+            <circle cx="39" cy="43" r="2" fill="#594b40"/>
+            <circle cx="61" cy="43" r="2" fill="#594b40"/>
+            <path d="M47 51c2-3 5-3 7 0l-3.5 4-3.5-4Z" fill="#8a6e5f"/>
+            <path d="M50.5 55v3m0 0c-2 3-4 3-6 1m6-1c2 3 4 3 6 1" stroke="#9b7966" stroke-width="1.2" stroke-linecap="round"/>
+            <ellipse cx="31" cy="75" rx="13" ry="18" transform="rotate(-27 31 75)" fill="url(#bear-fur)" stroke="#b99f7b" stroke-width="1.2"/>
+            <ellipse cx="69" cy="75" rx="13" ry="18" transform="rotate(27 69 75)" fill="url(#bear-fur)" stroke="#b99f7b" stroke-width="1.2"/>
+            <ellipse cx="50" cy="80" rx="22" ry="24" fill="url(#bear-fur)" stroke="#b99f7b" stroke-width="1.2"/>
+            <ellipse cx="50" cy="82" rx="11" ry="13" fill="#f1e4d1"/>
+            <ellipse cx="36" cy="99" rx="13" ry="9" fill="#e6d3ba" stroke="#b99f7b" stroke-width="1"/>
+            <ellipse cx="64" cy="99" rx="13" ry="9" fill="#e6d3ba" stroke="#b99f7b" stroke-width="1"/>
+            <path d="m47 34-8-7 1-9 10 5 10-5 1 9-8 7-3-4-3 4Z" fill="#b9d5e2" stroke="#8eafbe" stroke-width="1"/>
+            <circle cx="50" cy="27" r="2" fill="#c7a969"/>
+            <path d="M28 66c4 4 6 9 6 14m38-14c-4 4-6 9-6 14" stroke="#d3bea1" stroke-width="1" stroke-linecap="round" stroke-dasharray="1 3"/>
+            <defs><linearGradient id="bear-fur" x1="24" y1="22" x2="75" y2="96" gradientUnits="userSpaceOnUse"><stop stop-color="#fff8eb"/><stop offset=".58" stop-color="#e9d8bd"/><stop offset="1" stop-color="#d4bd9c"/></linearGradient></defs>
+          </svg>
+          <svg class="baptism-decoration decor-rainbow" viewBox="0 0 120 80" fill="none">
+            <path d="M19 66a41 41 0 0 1 82 0" stroke="#e7b5af" stroke-width="7" stroke-linecap="round"/>
+            <path d="M29 66a31 31 0 0 1 62 0" stroke="#ead6a8" stroke-width="7" stroke-linecap="round"/>
+            <path d="M39 66a21 21 0 0 1 42 0" stroke="#b8d5df" stroke-width="7" stroke-linecap="round"/>
+            <path d="M49 66a11 11 0 0 1 22 0" stroke="#c9d6c6" stroke-width="7" stroke-linecap="round"/>
+            <path d="M11 68c-7 0-11-4-11-9 0-5 4-8 9-8 2-6 7-9 13-9 7 0 12 4 13 10 5-3 12-1 14 5 5-1 10 2 10 7 0 3-2 5-5 6H11Zm68 0c-5 0-8-3-8-7 0-4 3-7 7-7 2-5 6-7 11-7 6 0 10 4 11 9 4-2 9-1 11 4 5-1 9 2 9 6 0 3-2 5-5 5H79Z" fill="#fff" stroke="#d9e7ea" stroke-width="1.2"/>
+            <circle cx="25" cy="53" r="1.2" fill="#c7a969"/>
+            <circle cx="96" cy="55" r="1.2" fill="#c7a969"/>
+          </svg>
+          <svg class="baptism-decoration decor-stars" viewBox="0 0 60 60" fill="none">
+            <path d="M17 3c1.8 8.3 4 10.6 12 12-8 1.4-10.2 3.7-12 12-1.8-8.3-4-10.6-12-12 8-1.4 10.2-3.7 12-12Zm27 22c1.1 5.2 2.5 6.6 7.5 7.5-5 .9-6.4 2.3-7.5 7.5-1.1-5.2-2.5-6.6-7.5-7.5 5-.9 6.4-2.3 7.5-7.5Z" fill="#c9b477"/>
+            <circle cx="12" cy="48" r="2" fill="#d8c99e"/>
+            <circle cx="37" cy="12" r="1.5" fill="#d8c99e"/>
+          </svg>
+        </div>
         <div class="hero-copy reveal">
           <div class="hero-symbols" aria-hidden="true">
-            <svg class="cross-ornament" viewBox="0 0 48 48" fill="none"><path d="M24 7v34M14 17h20M18 14h12v6H18z" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9c2.5 0 4 1.5 4 4-2.5 0-4-1.5-4-4Zm32 0c-2.5 0-4 1.5-4 4 2.5 0 4-1.5 4-4Z" fill="currentColor" opacity=".65"/></svg>
-            <svg class="dove-ornament" viewBox="0 0 48 48" fill="none"><path d="M5 27c6.2-.1 10.4-2.9 12.7-8.3 2-4.8 5.8-7.8 11.3-8.6-1.2 2.3-1.5 4.5-1.1 6.7 4.4-.2 8.4-1.5 11.9-3.8-1.4 7.3-5.9 12.7-12.7 15.5-4.8 1.9-9.8 1.9-15.3.1L5 35l2-8Z" fill="#fff" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M17 23c4.4-1 8.1-3.5 11.2-7.6M28 16l2.8 2.6M38 13l4-1.8-2.5 4.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="31.5" cy="13.8" r="1" fill="currentColor"/></svg>
+            <span class="cross-ornament" aria-hidden="true">♱</span>
           </div>
           <p class="eyebrow">With love and gratitude</p>
           <div class="hero-divider" aria-hidden="true">
@@ -652,7 +833,7 @@
         </div>
         <div class="photo-column reveal">
           <div class="photo-frame">
-            <img class="baby-photo lightbox-trigger" src="public/baby-photo.jpg" alt="Baby Kael Lucas P. Dayday, the guest of honor" fetchpriority="high" id="babyPhoto" tabindex="0" role="button" aria-label="View a larger photo of baby Kael">
+            <img class="baby-photo lightbox-trigger" src="public/kaleluos.jpg" alt="Baby Kael Lucas P. Dayday, the guest of honor" fetchpriority="high" id="babyPhoto" tabindex="0" role="button" aria-label="View a larger photo of baby Kael">
           </div>
           <p class="photo-caption">A precious gift from above<span>Our little blessing</span></p>
         </div>
@@ -669,6 +850,10 @@
           </figure>
           <figure class="gallery-card">
             <img class="gallery-photo lightbox-trigger" src="public/kaullocas.jpg" alt="A sweet close-up of baby Kael smiling" loading="lazy" tabindex="0" role="button" aria-label="View a larger close-up photo of baby Kael">
+            <figcaption>A smile to treasure</figcaption>
+          </figure>
+           <figure class="gallery-card">
+            <img class="gallery-photo lightbox-trigger" src="public/kael-1.jpg" alt="A sweet close-up of baby Kael smiling" loading="lazy" tabindex="0" role="button" aria-label="View a larger close-up photo of baby Kael">
             <figcaption>A smile to treasure</figcaption>
           </figure>
         </div>
@@ -712,49 +897,7 @@
         </div>
       </section>
 
-      <section class="godparents reveal" aria-labelledby="godparentsTitle">
-        <p class="eyebrow">Surrounded by love</p>
-        <h2 class="section-heading" id="godparentsTitle">Our Little One's Godparents</h2>
-        <p class="section-intro">With grateful hearts, we celebrate the family and friends who will guide Kael in faith and love.</p>
-        <div class="ornamental-rule" aria-hidden="true">✦</div>
-        <div class="godparent-list">
-          <div class="godparent">
-            
-            <span class="godparent-label">Ninang</span>
-            <span class="godparent-name">Airah</span>
-            <span class="godparent-name">Merry</span>
-            <span class="godparent-name">Bonic</span>
-            <span class="godparent-name">Joanne</span>
-            <span class="godparent-name">Richelyn</span>
-            <span class="godparent-name">Jenny</span>
-            <span class="godparent-name">Jaymie</span>
-            <span class="godparent-name">Julie</span>
-            <span class="godparent-name">Claire</span>
-            <span class="godparent-name">Janette</span>
-            <span class="godparent-name">Issa</span>
-            <span class="godparent-name">Jessan</span>
-            <span class="godparent-name">Monica</span>
-            <span class="godparent-name">Jhemay</span>
-            <span class="godparent-name">Angel</span>
-            <span class="godparent-name">Tina</span>
-            <span class="godparent-name">Zyra</span>
-            
-          </div>
-          <div class="godparent">
-            <span class="godparent-label">Ninong</span>
-            <span class="godparent-name">Luke</span>
-            <span class="godparent-name">Lukas</span>
-            <span class="godparent-name">Lucas</span>
-          </div>
-        </div>
-      </section>
-
       <section class="family-note reveal" aria-label="A note from the family">
-        <div class="guest-card">
-          <p class="eyebrow">A place in our hearts</p>
-          <h2>Dear <span class="guest-name">[Guest Name]</span>,</h2>
-          <p>you are warmly invited to share this special day with us.</p>
-        </div>
         <div class="family-copy">
           <p>We would be honored by your presence as we celebrate this special day.</p>
           <p class="with-love">With love,</p>
@@ -764,7 +907,7 @@
       </section>
 
       <footer class="footer">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v18M7 9h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4 15c2.8-1 5.3-.7 8 1.2 2.7-1.9 5.2-2.2 8-1.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <span class="footer-mark" aria-hidden="true">♱</span>
         A day of faith, family &amp; love
       </footer>
     </div>
