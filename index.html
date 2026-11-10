@@ -438,6 +438,82 @@
     .decor-teddy { right: 19px; bottom: 10px; width: 67px; }
     .decor-rainbow { bottom: 9px; left: 145px; width: 82px; }
     .decor-stars { top: 105px; right: 25px; width: 37px; opacity: .82; }
+    .decorations-active .decor-balloons { animation: balloon-float 4.6s ease-in-out infinite; }
+    .decorations-active .decor-cloud-top { animation: cloud-drift-top 16s ease-in-out infinite; }
+    .decorations-active .decor-cloud-bottom { animation: cloud-drift-bottom 21s ease-in-out infinite; }
+    .decorations-active .decor-airplane { animation: airplane-flight 10s ease-in-out infinite; }
+    .decorations-active .decor-teddy { transform-origin: 50% 100%; animation: teddy-breathe 3.6s ease-in-out infinite; }
+    .decorations-active .decor-rainbow { animation: rainbow-glow 5s ease-in-out infinite; }
+    .decorations-active .decor-stars { animation: star-twinkle 3.8s ease-in-out infinite; }
+    .decorations-active .decor-stars circle:first-of-type { animation: star-detail-twinkle 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .decorations-active .decor-stars circle:last-of-type { animation: star-detail-twinkle 4.1s ease-in-out -1.7s infinite; transform-box: fill-box; transform-origin: center; }
+    .opening-screen.decorations-active .opening-balloons { animation: balloon-float 4.6s ease-in-out infinite; }
+    .opening-screen.decorations-active .opening-airplane { animation: opening-airplane-flight 9s ease-in-out infinite; }
+    .opening-screen.decorations-active .opening-cloud-top { animation: opening-cloud-drift-top 16s ease-in-out infinite; }
+    .opening-screen.decorations-active .opening-cloud-bottom { animation: opening-cloud-drift-bottom 21s ease-in-out infinite; }
+    .opening-screen.decorations-active .opening-teddy { transform-origin: 50% 100%; animation: opening-teddy-breathe 3.6s ease-in-out infinite; }
+    .opening-screen.decorations-active .opening-rainbow { animation: rainbow-glow 5s ease-in-out infinite; }
+    .opening-screen.decorations-active .opening-stars { animation: star-twinkle 3.8s ease-in-out infinite; }
+    .opening-screen.decorations-active .opening-stars circle:first-of-type { animation: star-detail-twinkle 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .opening-screen.decorations-active .opening-stars circle:last-of-type { animation: star-detail-twinkle 4.1s ease-in-out -1.7s infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes balloon-float {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-5px) rotate(1deg); }
+    }
+    @keyframes cloud-drift-top {
+      0%, 100% { transform: translateX(0); opacity: .78; }
+      50% { transform: translateX(6px); opacity: .88; }
+    }
+    @keyframes cloud-drift-bottom {
+      0%, 100% { transform: translateX(0); opacity: .76; }
+      50% { transform: translateX(-6px); opacity: .86; }
+    }
+    @keyframes opening-cloud-drift-top {
+      0%, 100% { transform: translateX(-50%) translateX(0); opacity: .8; }
+      50% { transform: translateX(-50%) translateX(5px); opacity: .9; }
+    }
+    @keyframes opening-cloud-drift-bottom {
+      0%, 100% { transform: translateX(-50%) translateX(0); opacity: .8; }
+      50% { transform: translateX(-50%) translateX(-5px); opacity: .9; }
+    }
+    @keyframes airplane-flight {
+      0%, 100% { transform: translate(0, 0) rotate(0); }
+      25% { transform: translate(5px, -4px) rotate(-2deg); }
+      55% { transform: translate(9px, 1px) rotate(1.5deg); }
+      78% { transform: translate(4px, -2px) rotate(-1deg); }
+    }
+    @keyframes opening-airplane-flight {
+      0%, 100% { transform: translate(0, 0) rotate(0); }
+      25% { transform: translate(8px, -6px) rotate(-2deg); }
+      55% { transform: translate(15px, 2px) rotate(2deg); }
+      78% { transform: translate(6px, -3px) rotate(-1deg); }
+    }
+    @keyframes teddy-breathe {
+      0%, 100% { transform: translateY(0) scale(1) rotate(0); }
+      35% { transform: translateY(-1px) scale(1.012) rotate(0); }
+      43% { transform: translateY(-1px) scale(1.012) rotate(-1deg); }
+      51% { transform: translateY(-1px) scale(1.012) rotate(1deg); }
+      60% { transform: translateY(-1px) scale(1.012) rotate(0); }
+    }
+    @keyframes opening-teddy-breathe {
+      0%, 100% { transform: translateY(0) scale(1) rotate(0); }
+      35% { transform: translateY(-1px) scale(1.018) rotate(0); }
+      43% { transform: translateY(-1px) scale(1.018) rotate(-1.5deg); }
+      51% { transform: translateY(-1px) scale(1.018) rotate(1.5deg); }
+      60% { transform: translateY(-1px) scale(1.018) rotate(0); }
+    }
+    @keyframes rainbow-glow {
+      0%, 100% { transform: translateY(0); opacity: .92; filter: drop-shadow(0 2px 3px rgba(201,180,119,.12)); }
+      50% { transform: translateY(-3px); opacity: 1; filter: drop-shadow(0 3px 6px rgba(201,180,119,.28)); }
+    }
+    @keyframes star-twinkle {
+      0%, 100% { opacity: .72; transform: scale(1) rotate(0); }
+      50% { opacity: 1; transform: scale(1.06) rotate(3deg); }
+    }
+    @keyframes star-detail-twinkle {
+      0%, 100% { opacity: .55; transform: scale(.9); }
+      50% { opacity: 1; transform: scale(1.16); }
+    }
 
     .section { padding: 94px 0; }
     .section-heading { margin: 0; color: var(--navy); font: 400 clamp(2rem, 4vw, 3.1rem)/1.1 var(--serif); text-align: center; }
@@ -624,6 +700,22 @@
         transition-duration: .01ms !important;
       }
       .reveal { opacity: 1; transform: none; }
+      .decorations-active .decor-balloons,
+      .decorations-active .decor-cloud-top,
+      .decorations-active .decor-cloud-bottom,
+      .decorations-active .decor-airplane,
+      .decorations-active .decor-teddy,
+      .decorations-active .decor-rainbow,
+      .decorations-active .decor-stars,
+      .decorations-active .decor-stars circle,
+      .opening-screen.decorations-active .opening-balloons,
+      .opening-screen.decorations-active .opening-airplane,
+      .opening-screen.decorations-active .opening-cloud-top,
+      .opening-screen.decorations-active .opening-cloud-bottom,
+      .opening-screen.decorations-active .opening-teddy,
+      .opening-screen.decorations-active .opening-rainbow,
+      .opening-screen.decorations-active .opening-stars,
+      .opening-screen.decorations-active .opening-stars circle { animation: none !important; }
     }
   </style>
 </head>
@@ -846,7 +938,7 @@
         <div class="gallery-grid">
           <figure class="gallery-card">
             <img class="gallery-photo lightbox-trigger" src="public/locaskkael.jpg" alt="Kael in a cozy little outfit" loading="lazy" tabindex="0" role="button" aria-label="View a larger photo of Kael in his cozy outfit">
-            <figcaption>Our little cuddle bug</figcaption>
+            <figcaption>Agugugaga! </figcaption>
           </figure>
           <figure class="gallery-card">
             <img class="gallery-photo lightbox-trigger" src="public/kaullocas.jpg" alt="A sweet close-up of baby Kael smiling" loading="lazy" tabindex="0" role="button" aria-label="View a larger close-up photo of baby Kael">
@@ -854,7 +946,11 @@
           </figure>
            <figure class="gallery-card">
             <img class="gallery-photo lightbox-trigger" src="public/kael-1.jpg" alt="A sweet close-up of baby Kael smiling" loading="lazy" tabindex="0" role="button" aria-label="View a larger close-up photo of baby Kael">
-            <figcaption>A smile to treasure</figcaption>
+            <figcaption>Our little cuddle bug</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <img class="gallery-photo lightbox-trigger" src="kaelocas.jpg" alt="A sweet close-up of baby Kael smiling" loading="lazy" tabindex="0" role="button" aria-label="View a larger close-up photo of baby Kael">
+            <figcaption>Our little prince</figcaption>
           </figure>
         </div>
       </section>
@@ -906,10 +1002,6 @@
         </div>
       </section>
 
-      <footer class="footer">
-        <span class="footer-mark" aria-hidden="true">♱</span>
-        A day of faith, family &amp; love
-      </footer>
     </div>
   </main>
 
@@ -1022,6 +1114,10 @@
         invitation.classList.add("is-visible");
         invitation.removeAttribute("inert");
         invitation.setAttribute("aria-hidden", "false");
+        if (!reducedMotion.matches) {
+          openingScreen.classList.add("decorations-active");
+          invitation.classList.add("decorations-active");
+        }
         window.setTimeout(() => openingScreen.setAttribute("hidden", ""), reducedMotion.matches ? 50 : 850);
       }, revealDelay);
     }
@@ -1035,6 +1131,8 @@
       invitation.setAttribute("aria-hidden", "true");
       openingScreen.removeAttribute("hidden");
       openingScreen.classList.remove("is-dismissed", "is-opening");
+      openingScreen.classList.remove("decorations-active");
+      invitation.classList.remove("decorations-active");
       openButton.disabled = false;
       openButton.focus();
     }
